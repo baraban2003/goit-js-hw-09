@@ -1,6 +1,5 @@
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
-import Notiflix from 'notiflix';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 const refs = {
@@ -12,10 +11,12 @@ const refs = {
 };
 
 const { startButton, timerDays, timerHours, timerMinutes, timerSeconds } = refs;
+
 //Формат времени ХХ, Количество дней может состоять из более чем двух цифр
 function addLeadingZero(value) {
   return String(value).padStart(2, '0');
 }
+
 //Для подсчета значений используй готовую функцию convertMs
 function convertMs(ms) {
   // Number of milliseconds per unit of time
@@ -36,43 +37,55 @@ function convertMs(ms) {
   return { days, hours, minutes, seconds };
 }
 let intervalId = null;
-
+let hasClickable = true;
 //console.log(timerDays.innerHTML);
 
 //Выбор даты
-startButton.disabled = true;
+
 const onClose = (selectedDates, dateStr, instance) => {
   //console.log(selectedDates[0], dateStr, instance);
   const calcTime = selectedDates[0] - instance.now;
+  /*   */
   //Если пользователь выбрал валидную дату (в будущем), кнопка «Start» становится активной.
   if (calcTime && calcTime > 0) {
     startButton.disabled = false;
 
     const starTimer = () => {
+      startButton.disabled = true;
+
       intervalId = setInterval(() => {
         const currentTime = Date.now();
+        //расчет разницы милисекунд
         const calcTimeUpatedInMs = selectedDates[0] - currentTime;
+        //приведение времени в нормальный вид
         let calcTimeUpated = convertMs(calcTimeUpatedInMs);
+        //присвоение калькулятора
         timerDays.innerHTML = calcTimeUpated.days;
         timerHours.innerHTML = calcTimeUpated.hours;
         timerMinutes.innerHTML = calcTimeUpated.minutes;
         timerSeconds.innerHTML = calcTimeUpated.seconds;
+
         if (calcTimeUpatedInMs < 999) {
           clearInterval(intervalId);
         }
+
         //console.log(calcTimeUpated);
       }, 1000);
-      startButton.disabled = true;
     };
 
     startButton.addEventListener('click', starTimer);
-  } else {
+
+    //
+  }
+
+  if (calcTime <= 0) {
     //Если пользователь выбрал дату в прошлом, покажи window.alert() с текстом "Please choose a date in the future".
     Notify.failure('Please choose a date in the future');
   }
 };
 
 const options = {
+  clickOpens: true,
   enableTime: true,
   time_24hr: true,
   defaultDate: new Date(),
