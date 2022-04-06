@@ -49,7 +49,7 @@ const onClose = (selectedDates, dateStr, instance) => {
   //Если пользователь выбрал валидную дату (в будущем), кнопка «Start» становится активной.
   if (calcTime && calcTime > 0) {
     startButton.disabled = false;
-
+    flatpickr(myInput, { clickOpens: false, enableTime: true, time_24hr: true });
     const starTimer = () => {
       startButton.disabled = true;
 
@@ -85,7 +85,6 @@ const onClose = (selectedDates, dateStr, instance) => {
 };
 
 const options = {
-  clickOpens: true,
   enableTime: true,
   time_24hr: true,
   defaultDate: new Date(),
