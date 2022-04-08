@@ -31,19 +31,20 @@ inputsData.addEventListener('input', getInputData);
 let step = null;
 let delay = null;
 let i = null;
-let bebe = null;
+
 function getInputData(e) {
   step = Number(e.currentTarget.elements[1].value);
   delay = Number(e.currentTarget.elements[0].value);
   i = Number(e.currentTarget.elements[2].value);
 }
-function clearInputs() {
-  step = 0;
-  delay = 0;
-  i = 0;
-}
-function startCreatePromises(event) {
-  event.preventDefault();
+const clearInputs = () => {
+  step = '';
+  delay = '';
+  i = '';
+};
+
+function startCreatePromises(e) {
+  e.preventDefault();
 
   // const i = Number(inputAmount.value);
 
