@@ -13,14 +13,15 @@ const startActions = () => {
     intervalId = setInterval(() => {
       body.style.backgroundColor = `${getRandomHexColor()}`;
 
-      console.log(hasClickable);
-      console.log('кликнул');
+      //console.log(hasClickable);
+      //console.log('кликнул');
 
       function getRandomHexColor() {
         return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
       }
     }, 1000);
     hasClickable = false;
+    buttonStart.disabled = true;
   }
 };
 
@@ -28,4 +29,5 @@ buttonStart.addEventListener('click', startActions);
 buttonStop.addEventListener('click', () => {
   clearInterval(intervalId);
   hasClickable = true;
+  buttonStart.disabled = false;
 });

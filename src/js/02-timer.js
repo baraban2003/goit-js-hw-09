@@ -37,7 +37,7 @@ function convertMs(ms) {
   return { days, hours, minutes, seconds };
 }
 let intervalId = null;
-let hasClickable = true;
+//let hasClickable = true;
 //console.log(timerDays.innerHTML);
 
 //Выбор даты
