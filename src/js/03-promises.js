@@ -33,10 +33,11 @@ let delay = null;
 let i = null;
 
 function getInputData(e) {
-  step = Number(e.currentTarget.elements[1].value);
-  delay = Number(e.currentTarget.elements[0].value);
-  i = Number(e.currentTarget.elements[2].value);
+  step = Number(e.currentTarget.step.value);
+  delay = Number(e.currentTarget.delay.value);
+  i = Number(e.currentTarget.amount.value);
 }
+
 const clearInputs = () => {
   step = '';
   delay = '';
@@ -45,8 +46,6 @@ const clearInputs = () => {
 
 function startCreatePromises(e) {
   e.preventDefault();
-
-  // const i = Number(inputAmount.value);
 
   if (i) {
     createPromise(1, delay).then(onSuccess).catch(onError);
